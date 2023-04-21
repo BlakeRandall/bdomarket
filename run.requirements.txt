@@ -1,0 +1,14 @@
+schedule
+pyyaml
+gevent
+uwsgi
+redis
+flask
+flask-smorest
+marshmallow
+marshmallow-dataclass
+requests
+python-dotenv
+prometheus-client
+prometheus-flask-exporter
+bitstring

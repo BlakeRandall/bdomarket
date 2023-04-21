@@ -1,0 +1,7 @@
+uwsgi:
+  module: market
+  callable: app
+  need-app: true
+  master: true
+  http: :8080
+  log-x-forwarded-for: true

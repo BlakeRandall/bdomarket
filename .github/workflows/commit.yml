@@ -1,0 +1,33 @@
+name: Commit
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Python Setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+      - name: Python Packages
+        run: |
+          pip install --no-cache-dir --upgrade --requirement ${{ github.workspace }}/run.requirements.txt --requirement ${{ github.workspace }}/compile.requirements.txt
+      - name: Pylint
+        run: |
+          pylint -r y -s y -v --exit-zero market
+        continue-on-error: true
+      - name: Pytest
+        run: |
+          pytest --cov-branch --cov=market tests/
+        continue-on-error: true
+      - name: Build Docker Image
+        run: |
+          docker build --compress -f Dockerfile --no-cache --pull --quiet --rm --force-rm -t container .
