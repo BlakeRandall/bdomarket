@@ -5,18 +5,6 @@ from marshmallow import Schema, pre_load, post_load, pre_dump, post_dump, fields
 from marshmallow_dataclass import dataclass
 from market.enum import MarketRegion
 
-# Config Models
-
-@dataclass(repr=True, eq=True, order=True, frozen=True)
-class ConfigMarketItem(object):
-    name: str
-    id: int
-    sid: int = 0
-
-@dataclass(repr=True, eq=True, order=True, frozen=True)
-class Config(object):
-    items: List[ConfigMarketItem] = field(default_factory=list)
-
 # API Models
 @dataclass(repr=True, eq=True, order=True, frozen=True)
 class IndexRequest(object):
